@@ -1,0 +1,12 @@
+# Syntax Coloring For vbusslave
+#
+# Note: from the Arduino docs:
+#
+#   Datatypes             (KEYWORD1)
+#   Methods and Functions (KEYWORD2)
+#   Instances             (KEYWORD2)
+#   Constants             (LITERAL1)
+#
+
+##
+
