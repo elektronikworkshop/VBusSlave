@@ -119,7 +119,6 @@ value=GND
 }
 N 62400 47000 60500 47000 4
 N 60500 46000 62400 46000 4
-N 62000 45400 62000 46000 4
 N 61000 45400 61000 46000 4
 N 65400 44000 65400 45500 4
 N 64200 47000 63300 47000 4
@@ -148,14 +147,19 @@ T 67000 40700 9 10 1 0 0 0 1
 Resol VBus galvanic isolated slave interface
 T 70900 40100 9 10 1 0 0 0 1
 cls
-T 59000 49500 9 10 1 0 0 0 5
+T 58900 50400 9 10 1 0 0 2 9
 Notes:
  a) R3 only required for 3.3V logic. It can be omitted for 5V logic
- b) The output is inverted. If your UART can not handle an inverted signal you have to use an inverter
- c) Certain 6N138 can not operate from 3.3V (but I had it in my collection). A 3.3V compatible substitute would be the HCPL-270L for instance
+ b) The output is inverted. If your UART can not handle an inverted
+    signal you have to use an inverter
+ c) Certain 6N138 can not operate from 3.3V (but I had it in my collection).
+    A 3.3V compatible substitute would be the H11L1M for instance which
+    is better in mostly every aspect and features a schmitt trigger pulse
+    restauration
 
 N 65700 45500 65400 45500 4
 N 65400 45800 65700 45800 4
 T 72500 45300 9 10 1 0 0 0 2
 to UART RX
 (inverted)
+N 62000 45400 62000 47000 4
