@@ -3,10 +3,6 @@
  *
  * https://github.com/bbqkees/vbus-arduino-domoticz
  * https://github.com/bbqkees/vbus-arduino-domoticz/blob/master/Arduino-Code/ArduinoVBusDecoder.ino
- *
- *
- * Note 2 self:
- *  The maximum voltage is capped at approx. 8.2 V.
  */
 
 #ifndef _VBUS_SLAVE_H_
@@ -24,11 +20,6 @@ namespace VBus {
 class Slave
 {
 public:
-  typedef enum {
-    DebugNone = 0,
-    DebugNormal,
-    DebugVerbose,
-  } DebugLevel;
 
   /**
    * @param serial Hard or Software serial already initialized with baud rate
@@ -38,16 +29,14 @@ public:
     : m_print(print)
     , m_serial(serial)
     , m_payloadDecoders(payloadDecoders)
-    , m_debugLevel(DebugNone)
     , m_pos(-1)
     , m_bufferOverruns(0)
     , m_headerCrcErr(0)
     , m_frameCrcErr(0)
   { }
 
-  void begin(DebugLevel debugLevel=DebugNone)
+  void begin()
   {
-    m_debugLevel = debugLevel;
     m_pos = -1;
     m_bufferOverruns = 0;
     m_headerCrcErr = 0;
@@ -112,9 +101,6 @@ protected:
     Header *header = reinterpret_cast<Header*>(m_buffer + HeaderPos);
     if (not header->init()) {
       m_headerCrcErr++;
-      if (m_debugLevel > DebugNone) {
-        m_print.println("vbus crc err hd");
-      }
       return;
     }
 
@@ -146,10 +132,6 @@ protected:
 
       if (ccs != frame[FrameChecksumPos]) {
         m_frameCrcErr++;
-        if (m_debugLevel > DebugNone) {
-          m_print.print("vbus crc err fr ");
-          m_print.println(f);
-        }
         return;
       }
 
@@ -178,8 +160,6 @@ private:
   Print &m_print;
   Stream &m_serial;
   PayloadDecoder **m_payloadDecoders;
-
-  DebugLevel m_debugLevel;
 
   uint8_t m_buffer[VBUS_BUFFER_SIZE];
   int16_t m_pos;
